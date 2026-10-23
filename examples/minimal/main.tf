@@ -9,4 +9,8 @@ module "this" {
     owner        = "platform"
     cost_center  = "eng"
   }
+
+  parameters = {
+    greeting = { value = "hello", type = "String", description = "Example parameter" }
+  }
 }

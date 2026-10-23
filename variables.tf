@@ -30,7 +30,34 @@ variable "create" {
   default     = true
 }
 
-# GCP modules rename this variable to `labels` and add `project_id` after `context`.
+variable "parameters" {
+  description = "Parameters to create, keyed by the final path segment. type is String, StringList or SecureString (default SecureString); tier is Standard, Advanced or Intelligent-Tiering."
+  type = map(object({
+    value       = string
+    type        = optional(string, "SecureString")
+    description = optional(string)
+    tier        = optional(string, "Standard")
+  }))
+  sensitive = true
+  default   = {}
+
+  validation {
+    condition     = alltrue([for p in values(var.parameters) : contains(["String", "StringList", "SecureString"], p.type)])
+    error_message = "Each parameter type must be one of String, StringList, SecureString."
+  }
+
+  validation {
+    condition     = alltrue([for p in values(var.parameters) : contains(["Standard", "Advanced", "Intelligent-Tiering"], p.tier)])
+    error_message = "Each parameter tier must be one of Standard, Advanced, Intelligent-Tiering."
+  }
+}
+
+variable "kms_key_id" {
+  description = "KMS key ID, ARN or alias used to encrypt SecureString parameters. Null uses the AWS-managed alias/aws/ssm key."
+  type        = string
+  default     = null
+}
+
 variable "tags" {
   description = "Tags merged onto every taggable resource, applied last."
   type        = map(string)
