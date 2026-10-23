@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.2
+
+### Tests
+
+- Added `test_tags_contract`: `tags` wins over `context.extra_tags`, and extra tags are merged.
+
+### Docs
+
+- README Usage shows the naming module.
+
 ## 1.0.1
 
 ### Fixes
