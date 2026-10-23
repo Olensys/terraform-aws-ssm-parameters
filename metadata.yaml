@@ -4,7 +4,7 @@ tier: capability          # primitive | capability | blueprint
 maturity: experimental    # experimental | stable | deprecated
 description: SSM Parameter Store parameters under an environment-scoped path, SecureString by default
 owners: [platform]
-upstream: null            # e.g. "terraform-aws-modules/s3-bucket/aws 5.17.0"
-pairs_with: null          # e.g. "terraform-google-gcs-bucket"
+upstream: null
+pairs_with: terraform-google-secret-manager
 registry_name: terraform-aws-ssm-parameters
 deprecated: null          # { removal: YYYY-MM-DD, replacement: <repo> }
