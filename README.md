@@ -13,21 +13,22 @@ SSM Parameter Store parameters under an environment-scoped path, SecureString by
 ## Usage
 
 ```hcl
-module "this" {
-  source = "git::https://github.com/Olensys/terraform-aws-ssm-parameters.git?ref=v1.0.0"
+module "naming" {
+  source  = "git::https://github.com/Olensys/terraform-null-naming.git?ref=v1.0.1"
+  context = var.context
+}
 
-  name = "example"
+module "ssm_parameters" {
+  source  = "git::https://github.com/Olensys/terraform-aws-ssm-parameters.git?ref=v1.0.2"
+  name    = module.naming.name
+  context = var.context
+
   parameters = {
     db_password = { value = var.db_password }
     region      = { value = "eu-west-1", type = "String" }
   }
-  context = {
-    organization = "olensys"
-    environment  = "dev"
-    application  = "example"
-    owner        = "platform"
-    cost_center  = "eng"
-  }
+
+  tags = module.naming.tags
 }
 ```
 

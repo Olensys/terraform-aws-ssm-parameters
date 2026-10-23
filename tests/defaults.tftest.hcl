@@ -101,3 +101,29 @@ run "name_validation_rejects_uppercase" {
 
   expect_failures = [var.name]
 }
+
+run "test_tags_contract" {
+  command = plan
+
+  variables {
+    tags = { Owner = "x" }
+    context = {
+      organization = "olensys"
+      environment  = "test"
+      application  = "example"
+      owner        = "platform"
+      cost_center  = "eng"
+      extra_tags   = { Owner = "y", Team = "z" }
+    }
+  }
+
+  assert {
+    condition     = output.tags.Owner == "x"
+    error_message = "var.tags must win over context.extra_tags."
+  }
+
+  assert {
+    condition     = output.tags.Team == "z"
+    error_message = "context.extra_tags must be merged."
+  }
+}
