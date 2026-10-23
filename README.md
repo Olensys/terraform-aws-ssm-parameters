@@ -1,6 +1,6 @@
-# __NAME__
+# terraform-aws-ssm-parameters
 
-__DESCRIPTION__
+SSM Parameter Store parameters under an environment-scoped path, SecureString by default
 
 ## Opinions
 
@@ -10,7 +10,7 @@ __DESCRIPTION__
 
 ```hcl
 module "this" {
-  source = "git::https://github.com/Olensys/__NAME__.git?ref=v1.0.0"
+  source = "git::https://github.com/Olensys/terraform-aws-ssm-parameters.git?ref=v1.0.0"
 
   name = "example"
   context = {
