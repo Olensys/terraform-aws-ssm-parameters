@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/Olensys/terraform-aws-ssm-parameters/compare/v1.0.2...v1.0.3) (2026-10-24)
+
+
+### Bug Fixes
+
+* run integration on change and weekly instead of nightly ([415a60c](https://github.com/Olensys/terraform-aws-ssm-parameters/commit/415a60cf0dcf978f9e94550bd0f948c3cb3fb231))
+
 ## 1.0.2
 
 ### Tests
