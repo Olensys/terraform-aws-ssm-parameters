@@ -11,11 +11,11 @@ terraform {
 module "this" {
   source = "../../"
 
-  name = "example"
+  name = "olensys-test-ssm"
   context = {
     organization = "olensys"
     environment  = "test"
-    application  = "example"
+    application  = "ssm"
     owner        = "platform"
     cost_center  = "eng"
   }
