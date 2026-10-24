@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/Olensys/terraform-aws-ssm-parameters/compare/v1.0.3...v1.0.4) (2026-10-24)
+
+
+### Bug Fixes
+
+* **examples:** unique application slug so concurrent integration runs do not collide ([#2](https://github.com/Olensys/terraform-aws-ssm-parameters/issues/2)) ([b11396e](https://github.com/Olensys/terraform-aws-ssm-parameters/commit/b11396ec23d07e90331ef6e8ee63b96164b4ff61))
+
 ## [1.0.3](https://github.com/Olensys/terraform-aws-ssm-parameters/compare/v1.0.2...v1.0.3) (2026-10-24)
 
 
