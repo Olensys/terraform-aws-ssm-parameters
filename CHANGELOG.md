@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/Olensys/terraform-aws-ssm-parameters/compare/v1.0.5...v1.1.0) (2026-10-25)
+
+
+### Features
+
+* add path_prefix input ([#8](https://github.com/Olensys/terraform-aws-ssm-parameters/issues/8)) ([ee97b24](https://github.com/Olensys/terraform-aws-ssm-parameters/commit/ee97b2469aa5ae32d166bf0c6bb39627db9b5419))
+
 ## [1.0.5](https://github.com/Olensys/terraform-aws-ssm-parameters/compare/v1.0.4...v1.0.5) (2026-10-25)
 
 
