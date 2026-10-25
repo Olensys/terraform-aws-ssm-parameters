@@ -7,6 +7,10 @@
 
 * names output is null when create is false ([#5](https://github.com/Olensys/terraform-aws-ssm-parameters/issues/5)) ([403701a](https://github.com/Olensys/terraform-aws-ssm-parameters/commit/403701a8dfd1d81aa02d9ef3fd89fa067cba7199))
 
+### Behaviour changes
+
+`names` is now `null` instead of `[]` when `create = false`, matching every other output; guard list uses with `try(..., [])` or `coalescelist()`.
+
 ## [1.0.4](https://github.com/Olensys/terraform-aws-ssm-parameters/compare/v1.0.3...v1.0.4) (2026-10-24)
 
 
