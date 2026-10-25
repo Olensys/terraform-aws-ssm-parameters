@@ -1,9 +1,9 @@
 variable "name" {
-  description = "Path segment(s) after the prefix. Lowercase letters, digits and hyphens; use / to nest segments (for example orchestrator/sqs)."
+  description = "Resource name. Lowercase letters, digits and hyphens."
   type        = string
   validation {
-    condition     = can(regex("^[a-z0-9-]+(/[a-z0-9-]+)*$", var.name)) && length(var.name) <= 63
-    error_message = "name must be lowercase letters, digits and hyphens, optionally nested with /, at most 63 characters."
+    condition     = can(regex("^[a-z0-9-]{1,63}$", var.name))
+    error_message = "name must match ^[a-z0-9-]{1,63}$."
   }
 }
 
@@ -53,7 +53,7 @@ variable "parameters" {
 }
 
 variable "path_prefix" {
-  description = "Path prefix for every parameter, replacing the default /<context.environment>. Must start with / and not end with / (for example /th/dev). Null keeps /<context.environment>."
+  description = "Path prefix for every parameter, replacing the default /<context.environment>. Carries any nesting (for example /acme/dev/api). Must start with / and not end with /, and must contain context.environment as a segment. Null keeps /<context.environment>."
   type        = string
   default     = null
   validation {

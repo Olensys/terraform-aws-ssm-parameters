@@ -18,4 +18,11 @@ resource "aws_ssm_parameter" "this" {
   tier        = nonsensitive(var.parameters[each.key].tier)
   key_id      = nonsensitive(var.parameters[each.key].type) == "SecureString" ? var.kms_key_id : null
   tags        = local.tags
+
+  lifecycle {
+    precondition {
+      condition     = var.path_prefix == null || contains(split("/", var.path_prefix), var.context.environment)
+      error_message = "path_prefix must contain context.environment as a path segment so parameters stay environment-scoped."
+    }
+  }
 }

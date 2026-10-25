@@ -132,17 +132,17 @@ run "test_path_prefix" {
   command = plan
 
   variables {
-    path_prefix = "/th/dev"
-    name        = "orchestrator/sqs"
+    path_prefix = "/acme/test/api"
+    name        = "queue"
   }
 
   assert {
-    condition     = aws_ssm_parameter.this["db_password"].name == "/th/dev/orchestrator/sqs/db_password"
-    error_message = "path_prefix must replace /<environment> and name may nest segments."
+    condition     = aws_ssm_parameter.this["db_password"].name == "/acme/test/api/queue/db_password"
+    error_message = "path_prefix must replace /<environment> and name stays the last segment."
   }
 
   assert {
-    condition     = output.name == "/th/dev/orchestrator/sqs"
+    condition     = output.name == "/acme/test/api/queue"
     error_message = "name output must follow path_prefix."
   }
 }
@@ -151,18 +151,18 @@ run "test_path_prefix_validation" {
   command = plan
 
   variables {
-    path_prefix = "/th/dev/"
+    path_prefix = "/acme/test/"
   }
 
   expect_failures = [var.path_prefix]
 }
 
-run "test_nested_name_validation" {
+run "test_path_prefix_requires_environment" {
   command = plan
 
   variables {
-    name = "/leading-slash"
+    path_prefix = "/acme/api"
   }
 
-  expect_failures = [var.name]
+  expect_failures = [aws_ssm_parameter.this]
 }
