@@ -1,6 +1,8 @@
 locals {
   tags = merge(var.context.extra_tags, var.tags)
 
+  path = "${coalesce(var.path_prefix, "/${var.context.environment}")}/${var.name}"
+
   # Only `value` is secret. Keys, type, tier and description are structural
   # metadata, so they are unmarked to allow for_each and readable plans.
   parameter_keys = var.create ? toset(nonsensitive(keys(var.parameters))) : toset([])
@@ -9,11 +11,18 @@ locals {
 resource "aws_ssm_parameter" "this" {
   for_each = local.parameter_keys
 
-  name        = "/${var.context.environment}/${var.name}/${each.key}"
+  name        = "${local.path}/${each.key}"
   type        = nonsensitive(var.parameters[each.key].type)
   value       = var.parameters[each.key].value
   description = nonsensitive(var.parameters[each.key].description)
   tier        = nonsensitive(var.parameters[each.key].tier)
   key_id      = nonsensitive(var.parameters[each.key].type) == "SecureString" ? var.kms_key_id : null
   tags        = local.tags
+
+  lifecycle {
+    precondition {
+      condition     = var.path_prefix == null || contains(split("/", var.path_prefix), var.context.environment)
+      error_message = "path_prefix must contain context.environment as a path segment so parameters stay environment-scoped."
+    }
+  }
 }

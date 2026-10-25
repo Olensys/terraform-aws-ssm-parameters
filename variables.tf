@@ -52,6 +52,16 @@ variable "parameters" {
   }
 }
 
+variable "path_prefix" {
+  description = "Path prefix for every parameter, replacing the default /<context.environment>. Carries any nesting (for example /acme/dev/api). Must start with / and not end with /, and must contain context.environment as a segment. Null keeps /<context.environment>."
+  type        = string
+  default     = null
+  validation {
+    condition     = var.path_prefix == null || can(regex("^/[A-Za-z0-9_.-]+(/[A-Za-z0-9_.-]+)*$", var.path_prefix))
+    error_message = "path_prefix must start with / and must not end with /."
+  }
+}
+
 variable "kms_key_id" {
   description = "KMS key ID, ARN or alias used to encrypt SecureString parameters. Null uses the AWS-managed alias/aws/ssm key."
   type        = string

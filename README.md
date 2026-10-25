@@ -4,7 +4,7 @@ SSM Parameter Store parameters under an environment-scoped path, SecureString by
 
 ## Opinions
 
-- Path convention: every parameter is named `/<context.environment>/<name>/<key>`, so `name` is the second path segment.
+- Parameters live at `<path_prefix or /<environment>>/<name>/<key>`; `path_prefix` exists for consumers with an existing convention and must still contain the environment.
 - `SecureString` is the default parameter type; `String` and `StringList` must be requested explicitly.
 - SecureString parameters use `alias/aws/ssm` unless `kms_key_id` is set.
 - `context.extra_tags` merged with `tags` is applied to every parameter.
@@ -65,6 +65,7 @@ No modules.
 | <a name="input_create"></a> [create](#input\_create) | Whether to create any resources. Set false to create nothing. | `bool` | `true` | no |
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | KMS key ID, ARN or alias used to encrypt SecureString parameters. Null uses the AWS-managed alias/aws/ssm key. | `string` | `null` | no |
 | <a name="input_parameters"></a> [parameters](#input\_parameters) | Parameters to create, keyed by the final path segment. type is String, StringList or SecureString (default SecureString); tier is Standard, Advanced or Intelligent-Tiering. | <pre>map(object({<br/>    value       = string<br/>    type        = optional(string, "SecureString")<br/>    description = optional(string)<br/>    tier        = optional(string, "Standard")<br/>  }))</pre> | `{}` | no |
+| <a name="input_path_prefix"></a> [path\_prefix](#input\_path\_prefix) | Path prefix for every parameter, replacing the default /<context.environment>. Carries any nesting (for example /acme/dev/api). Must start with / and not end with /, and must contain context.environment as a segment. Null keeps /<context.environment>. | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags merged onto every taggable resource, applied last. | `map(string)` | `{}` | no |
 
 ## Outputs
@@ -73,7 +74,7 @@ No modules.
 | ---- | ----------- |
 | <a name="output_arn"></a> [arn](#output\_arn) | Map of parameter key to parameter ARN. Null when create is false. |
 | <a name="output_id"></a> [id](#output\_id) | Map of parameter key to parameter name. Null when create is false. |
-| <a name="output_name"></a> [name](#output\_name) | Path prefix under which all parameters live (/<environment>/<name>). Null when create is false. |
+| <a name="output_name"></a> [name](#output\_name) | Path prefix under which all parameters live (<path\_prefix or /<environment>>/<name>). Null when create is false. |
 | <a name="output_names"></a> [names](#output\_names) | List of full parameter names. Null when create is false. |
 | <a name="output_tags"></a> [tags](#output\_tags) | Tags applied to every parameter, with context.extra\_tags merged in. Null when create is false. |
 <!-- END_TF_DOCS -->
