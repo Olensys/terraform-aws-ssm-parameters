@@ -74,7 +74,7 @@ No modules.
 | ---- | ----------- |
 | <a name="output_arn"></a> [arn](#output\_arn) | Map of parameter key to parameter ARN. Null when create is false. |
 | <a name="output_id"></a> [id](#output\_id) | Map of parameter key to parameter name. Null when create is false. |
-| <a name="output_name"></a> [name](#output\_name) | Path prefix under which all parameters live (/<environment>/<name>). Null when create is false. |
+| <a name="output_name"></a> [name](#output\_name) | Path prefix under which all parameters live (<path\_prefix or /<environment>>/<name>). Null when create is false. |
 | <a name="output_names"></a> [names](#output\_names) | List of full parameter names. Null when create is false. |
 | <a name="output_tags"></a> [tags](#output\_tags) | Tags applied to every parameter, with context.extra\_tags merged in. Null when create is false. |
 <!-- END_TF_DOCS -->
