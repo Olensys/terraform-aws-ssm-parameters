@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/Olensys/terraform-aws-ssm-parameters/compare/v1.0.4...v1.0.5) (2026-10-25)
+
+
+### Bug Fixes
+
+* names output is null when create is false ([#5](https://github.com/Olensys/terraform-aws-ssm-parameters/issues/5)) ([403701a](https://github.com/Olensys/terraform-aws-ssm-parameters/commit/403701a8dfd1d81aa02d9ef3fd89fa067cba7199))
+
 ## [1.0.4](https://github.com/Olensys/terraform-aws-ssm-parameters/compare/v1.0.3...v1.0.4) (2026-10-24)
 
 
