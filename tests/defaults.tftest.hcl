@@ -127,3 +127,42 @@ run "test_tags_contract" {
     error_message = "context.extra_tags must be merged."
   }
 }
+
+run "test_path_prefix" {
+  command = plan
+
+  variables {
+    path_prefix = "/th/dev"
+    name        = "orchestrator/sqs"
+  }
+
+  assert {
+    condition     = aws_ssm_parameter.this["db_password"].name == "/th/dev/orchestrator/sqs/db_password"
+    error_message = "path_prefix must replace /<environment> and name may nest segments."
+  }
+
+  assert {
+    condition     = output.name == "/th/dev/orchestrator/sqs"
+    error_message = "name output must follow path_prefix."
+  }
+}
+
+run "test_path_prefix_validation" {
+  command = plan
+
+  variables {
+    path_prefix = "/th/dev/"
+  }
+
+  expect_failures = [var.path_prefix]
+}
+
+run "test_nested_name_validation" {
+  command = plan
+
+  variables {
+    name = "/leading-slash"
+  }
+
+  expect_failures = [var.name]
+}

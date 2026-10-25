@@ -1,6 +1,8 @@
 locals {
   tags = merge(var.context.extra_tags, var.tags)
 
+  path = "${coalesce(var.path_prefix, "/${var.context.environment}")}/${var.name}"
+
   # Only `value` is secret. Keys, type, tier and description are structural
   # metadata, so they are unmarked to allow for_each and readable plans.
   parameter_keys = var.create ? toset(nonsensitive(keys(var.parameters))) : toset([])
@@ -9,7 +11,7 @@ locals {
 resource "aws_ssm_parameter" "this" {
   for_each = local.parameter_keys
 
-  name        = "/${var.context.environment}/${var.name}/${each.key}"
+  name        = "${local.path}/${each.key}"
   type        = nonsensitive(var.parameters[each.key].type)
   value       = var.parameters[each.key].value
   description = nonsensitive(var.parameters[each.key].description)

@@ -4,8 +4,8 @@ output "id" {
 }
 
 output "name" {
-  description = "Path prefix under which all parameters live (/<environment>/<name>). Null when create is false."
-  value       = var.create ? "/${var.context.environment}/${var.name}" : null
+  description = "Path prefix under which all parameters live (<path_prefix or /<environment>>/<name>). Null when create is false."
+  value       = var.create ? local.path : null
 }
 
 output "arn" {
