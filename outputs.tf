@@ -14,8 +14,8 @@ output "arn" {
 }
 
 output "names" {
-  description = "List of full parameter names. Empty when create is false."
-  value       = [for k, p in aws_ssm_parameter.this : p.name]
+  description = "List of full parameter names. Null when create is false."
+  value       = var.create ? [for k, p in aws_ssm_parameter.this : p.name] : null
 }
 
 output "tags" {

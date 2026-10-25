@@ -87,8 +87,8 @@ run "test_create_false_plans_nothing" {
   }
 
   assert {
-    condition     = length(output.names) == 0
-    error_message = "names must be empty when create is false."
+    condition     = output.names == null
+    error_message = "names must be null when create is false."
   }
 }
 
