@@ -19,7 +19,7 @@ module "naming" {
 }
 
 module "ssm_parameters" {
-  source  = "git::https://github.com/Olensys/terraform-aws-ssm-parameters.git?ref=v1.0.2"
+  source  = "git::https://github.com/Olensys/terraform-aws-ssm-parameters.git?ref=v1.0.5"
   name    = module.naming.name
   context = var.context
 
