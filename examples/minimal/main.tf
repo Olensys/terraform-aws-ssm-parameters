@@ -8,10 +8,13 @@ terraform {
   }
 }
 
-module "this" {
-  source = "../../"
+module "naming" {
+  source = "git::https://github.com/Olensys/terraform-null-naming.git?ref=v1.0.1"
 
-  name = "olensys-test-ssm"
+  context = local.context
+}
+
+locals {
   context = {
     organization = "olensys"
     environment  = "test"
@@ -19,6 +22,14 @@ module "this" {
     owner        = "platform"
     cost_center  = "eng"
   }
+}
+
+module "this" {
+  source = "../../"
+
+  name    = module.naming.name
+  context = local.context
+  tags    = module.naming.tags
 
   parameters = {
     greeting = { value = "hello", type = "String", description = "Example parameter" }
