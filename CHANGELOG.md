@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/Olensys/terraform-aws-ssm-parameters/compare/v1.1.0...v1.1.1) (2026-11-14)
+
+
+### Bug Fixes
+
+* tag the minimal example's resources through the naming module ([#10](https://github.com/Olensys/terraform-aws-ssm-parameters/issues/10)) ([c4ec9d0](https://github.com/Olensys/terraform-aws-ssm-parameters/commit/c4ec9d0ba15f2a877efed5088224f6cd9ec839fa))
+
 ## [1.1.0](https://github.com/Olensys/terraform-aws-ssm-parameters/compare/v1.0.5...v1.1.0) (2026-10-25)
 
 
